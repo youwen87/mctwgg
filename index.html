@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名晨图文广告店 - 专业广告制作与办公用品</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C42',
+                        secondary: '#FFB347',
+                        accent: '#FF6B35',
+                        warm: '#FFF8E7',
+                        dark: '#333333'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-soft': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .gradient-text {
+                background: linear-gradient(135deg, #FF8C42, #FFB347);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .glass-effect {
+                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.1);
+            }
+            .shadow-warm {
+                box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 140, 66, 0.2);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            margin: 5% auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoom 0.3s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0)} 
+            to {transform: scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* 轮播样式 */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2xl;
+        }
+        
+        .carousel-slide {
+            display: none;
+            width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.5s ease;
+        }
+        
+        .carousel-slide.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .carousel-prev, .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-prev:hover, .carousel-next:hover {
+            background: rgba(255, 140, 66, 0.9);
+            color: white;
+        }
+        
+        .carousel-prev {
+            left: 20px;
+        }
+        
+        .carousel-next {
+            right: 20px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        /* 内容叠加层 */
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="font-sans bg-warm smooth-scroll">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="https://doc.doubao.com/s/BSh_hr47agk/?alice_filename=mclogo.png" alt="名晨图文广告店LOGO" class="w-16 h-16 floating">
+                    <div>
+                        <h1 class="text-2xl font-bold gradient-text">名晨图文广告店</h1>
+                        <p class="text-sm text-gray-600">向二打字店</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-dark hover:text-primary transition-colors duration-300">首页</a>
+                    <a href="#services" class="text-dark hover:text-primary transition-colors duration-300">广告服务</a>
+                    <a href="#products" class="text-dark hover:text-primary transition-colors duration-300">办公用品</a>
+                    <a href="#about" class="text-dark hover:text-primary transition-colors duration-300">关于我们</a>
+                    <a href="#contact" class="text-dark hover:text-primary transition-colors duration-300">联系我们</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-dark hover:text-primary">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="container mx-auto px-6 py-4 space-y-4">
+                <a href="#home" class="block text-dark hover:text-primary transition-colors duration-300">首页</a>
+                <a href="#services" class="block text-dark hover:text-primary transition-colors duration-300">广告服务</a>
+                <a href="#products" class="block text-dark hover:text-primary transition-colors duration-300">办公用品</a>
+                <a href="#about" class="block text-dark hover:text-primary transition-colors duration-300">关于我们</a>
+                <a href="#contact" class="block text-dark hover:text-primary transition-colors duration-300">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页横幅轮播 -->
+    <section id="home" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="carousel-container">
+                <!-- 轮播图片 -->
+                <div class="carousel-slide active" style="background-image: url('https://doc.doubao.com/s/OxaxcMnftxg/?alice_filename=1.jpg');">
+                    <div class="carousel-overlay">
+                        <div class="text-center text-white px-6">
+                            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight mb-6 animate-slide-up">
+                                <span class="gradient-text">专业广告制作</span><br>
+                                <span class="text-white">一站式服务</span>
+                            </h1>
+                            <p class="text-xl text-gray-200 mb-8 leading-relaxed animate-slide-up" style="animation-delay: 0.2s;">
+                                专业的图文广告制作，优质的办公用品供应。<br>
+                                7:00-22:00全天候服务，节假日正常营业。
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.4s;">
+                                <a href="#services" class="bg-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-accent transition-all duration-300 shadow-warm hover-scale text-center">
+                                    <i class="fa fa-play mr-2"></i>查看服务
+                                </a>
+                                <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary transition-all duration-300 text-center">
+                                    <i class="fa fa-phone mr-2"></i>立即联系
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide" style="background-image: url('https://doc.doubao.com/s/aJEn6MeL4D4/');">
+                    <div class="carousel-overlay">
+                        <div class="text-center text-white px-6">
+                            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight mb-6">
+                                <span class="gradient-text">先进设备</span><br>
+                                <span class="text-white">专业品质</span>
+                            </h1>
+                            <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+                                配备先进的打印复印设备，确保每一份作品都达到专业标准
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="#services" class="bg-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-accent transition-all duration-300 shadow-warm hover-scale text-center">
+                                    <i class="fa fa-cogs mr-2"></i>设备展示
+                                </a>
+                                <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary transition-all duration-300 text-center">
+                                    <i class="fa fa-envelope mr-2"></i>咨询报价
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide" style="background-image: url('https://doc.doubao.com/s/9yMVmbleAos/');">
+                    <div class="carousel-overlay">
+                        <div class="text-center text-white px-6">
+                            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight mb-6">
+                                <span class="gradient-text">创意设计</span><br>
+                                <span class="text-white">无限可能</span>
+                            </h1>
+                            <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+                                专业设计团队，为您的品牌打造独特的视觉形象
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="#services" class="bg-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-accent transition-all duration-300 shadow-warm hover-scale text-center">
+                                    <i class="fa fa-paint-brush mr-2"></i>设计服务
+                                </a>
+                                <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary transition-all duration-300 text-center">
+                                    <i class="fa fa-lightbulb-o mr-2"></i>创意咨询
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 轮播控制按钮 -->
+                <button class="carousel-prev">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button class="carousel-next">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+                
+                <!-- 轮播指示器 -->
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" data-slide="0"></button>
+                    <button class="carousel-indicator" data-slide="1"></button>
+                    <button class="carousel-indicator" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务项目 -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold gradient-text mb-4">广告服务</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    提供全方位的广告制作服务，从设计到制作，从印刷到安装，一站式解决方案
+                </p>
+            </div>
+            
+            <!-- 服务分类标签 -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="service-tab active bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all duration-300" data-category="all">
+                    全部服务
+                </button>
+                <button class="service-tab bg-gray-100 text-dark px-6 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300" data-category="printing">
+                    印刷制作
+                </button>
+                <button class="service-tab bg-gray-100 text-dark px-6 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300" data-category="signage">
+                    标识标牌
+                </button>
+                <button class="service-tab bg-gray-100 text-dark px-6 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300" data-category="design">
+                    设计服务
+                </button>
+                <button class="service-tab bg-gray-100 text-dark px-6 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300" data-category="outdoor">
+                    户外广告
+                </button>
+            </div>
+            
+            <!-- 服务项目网格 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+                <!-- 印刷制作类 -->
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="printing" data-modal="printing-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/aJEn6MeL4D4/" alt="打印复印" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">打印复印</h3>
+                    <p class="text-gray-600 mb-4">A4/A3黑白彩色打印、高速复印、扫描归档</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="printing" data-modal="binding-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/1amvqC5MHuw/" alt="胶装装订" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">胶装装订</h3>
+                    <p class="text-gray-600 mb-4">书籍装订、画册制作、标书装订、精装制作</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="printing" data-modal="photo-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/9yMVmbleAos/" alt="写真喷绘" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">写真喷绘</h3>
+                    <p class="text-gray-600 mb-4">高精度写真、大型喷绘、车贴制作、背胶打印</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- 标识标牌类 -->
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="signage" data-modal="signboard-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/gV-OPoEzsMI/" alt="门头招牌" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">门头招牌</h3>
+                    <p class="text-gray-600 mb-4">店铺招牌、公司铭牌、亚克力字、金属字制作</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="signage" data-modal="lightbox-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/gtXGZMCNK3E/" alt="灯箱制作" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">灯箱制作</h3>
+                    <p class="text-gray-600 mb-4">LED灯箱、超薄灯箱、吸塑灯箱、滚动灯箱</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="signage" data-modal="glowing-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/u7AQs9VEDOc/" alt="发光字" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">发光字制作</h3>
+                    <p class="text-gray-600 mb-4">LED发光字、迷你字、树脂字、外露灯珠字</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- 设计服务类 -->
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="design" data-modal="graphic-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/8qrcSbU0kXM/" alt="平面设计" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">平面设计</h3>
+                    <p class="text-gray-600 mb-4">海报设计、宣传单页、画册设计、包装设计</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="design" data-modal="logo-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/79PmcOhI5ec/" alt="LOGO设计" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">LOGO设计</h3>
+                    <p class="text-gray-600 mb-4">品牌标识、企业VI、商标设计、形象设计</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="design" data-modal="video-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/9f9GW5a-KH8/" alt="视频剪辑" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">视频剪辑</h3>
+                    <p class="text-gray-600 mb-4">宣传片制作、广告片剪辑、电商视频、活动记录</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- 户外广告类 -->
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="outdoor" data-modal="outdoor-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/ZZvN2ag0uq0/" alt="户外广告" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">户外广告</h3>
+                    <p class="text-gray-600 mb-4">大型广告牌、围挡广告、高炮广告、道旗制作</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="outdoor" data-modal="sign-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/d8QYhe7IH6s/" alt="交通标识" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">交通标识</h3>
+                    <p class="text-gray-600 mb-4">道路标牌、指示牌、警示牌、反光标识</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-gradient-to-br from-white to-warm p-8 rounded-2xl shadow-warm cursor-pointer" data-category="outdoor" data-modal="culture-modal">
+                    <div class="mb-6">
+                        <img src="https://doc.doubao.com/s/6KRgCuyrXFI/" alt="文化墙" class="w-full h-48 object-cover rounded-xl mb-4">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-3">文化墙设计</h3>
+                    <p class="text-gray-600 mb-4">企业文化墙、党建文化墙、校园文化墙、社区文化墙</p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>查看详情</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 办公用品 -->
+    <section id="products" class="py-20 bg-gradient-to-br from-warm to-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold gradient-text mb-4">办公用品</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    齐全的办公用品供应，优质的办公设备销售与维修
+                </p>
+            </div>
+            
+            <!-- 产品分类 -->
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- 办公用纸 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm hover-scale">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-file-text-o text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">办公用纸</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">A4纸</h4>
+                            <p class="text-sm text-gray-600">70g/80g 复印纸</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">A3纸</h4>
+                            <p class="text-sm text-gray-600">70g/80g 复印纸</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">铜版纸</h4>
+                            <p class="text-sm text-gray-600">128g/157g/200g</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">封面纸</h4>
+                            <p class="text-sm text-gray-600">各种厚度规格</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 书写工具 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm hover-scale">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-pencil text-2xl text-secondary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">书写工具</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">水笔</h4>
+                            <p class="text-sm text-gray-600">各种品牌规格</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">马克笔</h4>
+                            <p class="text-sm text-gray-600">彩色记号笔</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">修正液</h4>
+                            <p class="text-sm text-gray-600">涂改液修正带</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">印泥</h4>
+                            <p class="text-sm text-gray-600">红色印泥印油</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 办公文具 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm hover-scale">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-briefcase text-2xl text-accent"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">办公文具</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">订书机</h4>
+                            <p class="text-sm text-gray-600">办公订书器</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">起钉器</h4>
+                            <p class="text-sm text-gray-600">取钉器工具</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">长尾夹</h4>
+                            <p class="text-sm text-gray-600">各种规格夹子</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">别针</h4>
+                            <p class="text-sm text-gray-600">回形针大头针</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 办公设备 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm hover-scale">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-print text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">办公设备</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">打印机</h4>
+                            <p class="text-sm text-gray-600">激光喷墨打印机</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">复印机</h4>
+                            <p class="text-sm text-gray-600">数码复合机</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">碳粉</h4>
+                            <p class="text-sm text-gray-600">各种品牌碳粉</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-dark mb-2">U盘</h4>
+                            <p class="text-sm text-gray-600">各种容量U盘</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-slide-up">
+                    <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold gradient-text mb-6">关于我们</h2>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        名晨图文广告店（向二打字店）是一家专业的图文广告制作与办公用品供应商，
+                        位于湖南省湘西自治州古丈县古阳镇正街新华书店对面。
+                    </p>
+                    <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                        我们拥有先进的设备和专业的团队，提供从设计到制作的一站式服务。
+                        营业时间从早上7:00至晚上22:00，节假日正常营业，
+                        为客户提供最便捷的服务体验。
+                    </p>
+                    
+                    <!-- 服务特色 -->
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fa fa-clock-o text-2xl text-primary"></i>
+                            </div>
+                            <h4 class="font-semibold text-dark mb-2">15小时营业</h4>
+                            <p class="text-sm text-gray-600">7:00-22:00全天候服务</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fa fa-calendar text-2xl text-secondary"></i>
+                            </div>
+                            <h4 class="font-semibold text-dark mb-2">节假日营业</h4>
+                            <p class="text-sm text-gray-600">全年无休服务</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fa fa-star text-2xl text-accent"></i>
+                            </div>
+                            <h4 class="font-semibold text-dark mb-2">专业品质</h4>
+                            <p class="text-sm text-gray-600">优质材料专业制作</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fa fa-truck text-2xl text-primary"></i>
+                            </div>
+                            <h4 class="font-semibold text-dark mb-2">快速交付</h4>
+                            <p class="text-sm text-gray-600">及时完成客户需求</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in">
+                    <img src="https://doc.doubao.com/s/OxaxcMnftxg/?alice_filename=1.jpg" alt="店内环境" class="rounded-2xl shadow-warm w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold gradient-text mb-4">联系我们</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    欢迎随时联系我们，我们将为您提供最专业的服务
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- 联系信息 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm">
+                    <h3 class="text-2xl font-bold text-dark mb-8">联系方式</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-map-marker text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">店铺地址</h4>
+                                <p class="text-gray-600">湖南省湘西自治州古丈县古阳镇正街新华书店对面</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-phone text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">联系电话</h4>
+                                <p class="text-gray-600">17742613533</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-building text-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">座机电话</h4>
+                                <p class="text-gray-600">0743-4966216</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-wechat text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">微信/QQ</h4>
+                                <p class="text-gray-600">461705763</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-envelope text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">邮箱地址</h4>
+                                <p class="text-gray-600">461705763@qq.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-clock-o text-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-dark mb-1">营业时间</h4>
+                                <p class="text-gray-600">早上7:00至晚上22:00（节假日正常营业）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 地图 -->
+                <div class="bg-white p-8 rounded-2xl shadow-warm">
+                    <h3 class="text-2xl font-bold text-dark mb-6">店铺位置</h3>
+                    <div class="rounded-xl overflow-hidden mb-6">
+                        <iframe 
+                            src="https://map.baidu.com/poi/%E5%90%8D%E6%99%A8%E5%9B%BE%E6%96%87%E5%B9%BF%E5%91%8A(%E5%90%91%E4%BA%8C%E6%89%93%E5%AD%97%E5%BA%97)/@12240536.83932592,3307083.5419122446,20.22z?uid=4c745f10d9254340246e98b1&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl"
+                            width="100%" 
+                            height="400" 
+                            frameborder="0" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            aria-hidden="false" 
+                            tabindex="0">
+                        </iframe>
+                    </div>
+                    <a href="https://map.baidu.com/poi/%E5%90%8D%E6%99%A8%E5%9B%BE%E6%96%87%E5%B9%BF%E5%91%8A(%E5%90%91%E4%BA%8C%E6%89%93%E5%AD%97%E5%BA%97)/@12240536.83932592,3307083.5419122446,20.22z?uid=4c745f10d9254340246e98b1&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl" 
+                       target="_blank" 
+                       class="block text-center bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors duration-300">
+                        <i class="fa fa-map mr-2"></i>在百度地图中查看
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <img src="https://doc.doubao.com/s/BSh_hr47agk/?alice_filename=mclogo.png" alt="名晨图文广告店LOGO" class="w-12 h-12">
+                        <div>
+                            <h3 class="text-xl font-bold">名晨图文广告店</h3>
+                            <p class="text-sm text-gray-400">向二打字店</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        专业的图文广告制作，优质的办公用品供应。
+                        7:00-22:00全天候服务，节假日正常营业。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">快速链接</h4>
+                    <div class="space-y-3">
+                        <a href="#services" class="block text-gray-400 hover:text-primary transition-colors duration-300">广告服务</a>
+                        <a href="#products" class="block text-gray-400 hover:text-primary transition-colors duration-300">办公用品</a>
+                        <a href="#about" class="block text-gray-400 hover:text-primary transition-colors duration-300">关于我们</a>
+                        <a href="#contact" class="block text-gray-400 hover:text-primary transition-colors duration-300">联系我们</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">联系方式</h4>
+                    <div class="space-y-3 text-gray-400">
+                        <p><i class="fa fa-map-marker mr-2"></i>湖南省湘西自治州古丈县古阳镇正街新华书店对面</p>
+                        <p><i class="fa fa-phone mr-2"></i>17742613533</p>
+                        <p><i class="fa fa-building mr-2"></i>0743-4966216</p>
+                        <p><i class="fa fa-envelope mr-2"></i>461705763@qq.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 名晨图文广告店. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-accent transition-all duration-300 opacity-0 invisible">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- 服务详情模态框 -->
+    <div id="printing-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">打印复印服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/aJEn6MeL4D4/" alt="打印复印设备" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• A4黑白打印/复印</li>
+                        <li>• A4彩色打印/复印</li>
+                        <li>• A3黑白打印/复印</li>
+                        <li>• A3彩色打印/复印</li>
+                        <li>• 高速扫描服务</li>
+                        <li>• 文档归档处理</li>
+                        <li>• 批量打印服务</li>
+                        <li>• 格式转换处理</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="binding-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">胶装装订服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/1amvqC5MHuw/" alt="胶装装订" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 无线胶装装订</li>
+                        <li>• 骑马钉装订</li>
+                        <li>• 铁圈装订</li>
+                        <li>• 打孔装订</li>
+                        <li>• 书籍制作装订</li>
+                        <li>• 画册设计制作</li>
+                        <li>• 标书制作装订</li>
+                        <li>• 精装书籍制作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="photo-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">写真喷绘服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/9yMVmbleAos/" alt="写真喷绘" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 高精度彩色写真</li>
+                        <li>• 大型户外喷绘</li>
+                        <li>• 车身贴制作</li>
+                        <li>• 背胶打印</li>
+                        <li>• 灯箱片制作</li>
+                        <li>• 条幅制作</li>
+                        <li>• 展板制作</li>
+                        <li>• 海报制作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signboard-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">门头招牌制作</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/gV-OPoEzsMI/" alt="门头招牌" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 店铺招牌制作</li>
+                        <li>• 公司铭牌制作</li>
+                        <li>• 亚克力字制作</li>
+                        <li>• 金属字制作</li>
+                        <li>• PVC字制作</li>
+                        <li>• 水晶字制作</li>
+                        <li>• 不锈钢字制作</li>
+                        <li>• 安装调试服务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">灯箱制作服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/gtXGZMCNK3E/" alt="灯箱制作" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• LED超薄灯箱</li>
+                        <li>• 吸塑灯箱</li>
+                        <li>• 滚动灯箱</li>
+                        <li>• 水晶灯箱</li>
+                        <li>• 奶茶店灯箱</li>
+                        <li>• 点餐灯箱</li>
+                        <li>• 户外防水灯箱</li>
+                        <li>• 定制尺寸灯箱</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="glowing-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">发光字制作服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/u7AQs9VEDOc/" alt="发光字制作" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• LED发光字</li>
+                        <li>• 迷你发光字</li>
+                        <li>• 树脂发光字</li>
+                        <li>• 外露灯珠字</li>
+                        <li>• 背打光字</li>
+                        <li>• 不锈钢发光字</li>
+                        <li>• 七彩变色字</li>
+                        <li>• 安装维护服务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="graphic-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">平面设计服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/8qrcSbU0kXM/" alt="平面设计" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 海报设计</li>
+                        <li>• 宣传单页设计</li>
+                        <li>• 画册设计</li>
+                        <li>• 包装设计</li>
+                        <li>• 名片设计</li>
+                        <li>• 邀请函设计</li>
+                        <li>• 展架设计</li>
+                        <li>• 宣传册设计</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logo-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">LOGO设计服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/79PmcOhI5ec/" alt="LOGO设计" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 品牌LOGO设计</li>
+                        <li>• 企业VI设计</li>
+                        <li>• 商标设计</li>
+                        <li>• 企业形象设计</li>
+                        <li>• 字体设计</li>
+                        <li>• 色彩搭配设计</li>
+                        <li>• 品牌手册制作</li>
+                        <li>• 应用系统设计</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="video-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">视频剪辑服务</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/9f9GW5a-KH8/" alt="视频剪辑" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 企业宣传片制作</li>
+                        <li>• 产品广告片剪辑</li>
+                        <li>• 电商视频制作</li>
+                        <li>• 活动记录视频</li>
+                        <li>• 教学视频制作</li>
+                        <li>• 短视频剪辑</li>
+                        <li>• 特效制作</li>
+                        <li>• 配音配乐服务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="outdoor-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">户外广告制作</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/ZZvN2ag0uq0/" alt="户外广告" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 大型广告牌制作</li>
+                        <li>• 围挡广告制作</li>
+                        <li>• 高炮广告制作</li>
+                        <li>• 道旗制作</li>
+                        <li>• 灯杆旗制作</li>
+                        <li>• 户外喷绘</li>
+                        <li>• 楼体广告</li>
+                        <li>• 安装维护服务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sign-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">交通标识制作</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/d8QYhe7IH6s/" alt="交通标识" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 道路指示牌</li>
+                        <li>• 禁令标志牌</li>
+                        <li>• 警告标志牌</li>
+                        <li>• 指路标志牌</li>
+                        <li>• 反光标识牌</li>
+                        <li>• 施工警示牌</li>
+                        <li>• 小区标识牌</li>
+                        <li>• 停车场标识</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="culture-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content bg-white p-8 rounded-2xl max-w-4xl mx-auto my-8">
+            <h2 class="text-3xl font-bold text-dark mb-6">文化墙设计制作</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <img src="https://doc.doubao.com/s/6KRgCuyrXFI/" alt="文化墙设计" class="rounded-xl w-full h-64 object-cover">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">服务内容：</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 企业文化墙设计</li>
+                        <li>• 党建文化墙制作</li>
+                        <li>• 校园文化墙设计</li>
+                        <li>• 社区文化墙制作</li>
+                        <li>• 科室文化墙</li>
+                        <li>• 走廊文化墙</li>
+                        <li>• 立体字文化墙</li>
+                        <li>• 背景墙设计制作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('back-to-top');
+            
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white', 'shadow-lg');
+                backToTop.classList.remove('opacity-0', 'invisible');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-lg');
+                backToTop.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // 关闭移动端菜单
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // 返回顶部
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 服务分类筛选
+        document.querySelectorAll('.service-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // 更新标签状态
+                document.querySelectorAll('.service-tab').forEach(t => {
+                    t.classList.remove('active', 'bg-primary', 'text-white');
+                    t.classList.add('bg-gray-100', 'text-dark');
+                });
+                this.classList.add('active', 'bg-primary', 'text-white');
+                this.classList.remove('bg-gray-100', 'text-dark');
+                
+                // 筛选服务卡片
+                document.querySelectorAll('.service-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 模态框功能
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // 防止背景滚动
+                }
+            });
+        });
+
+        // 关闭模态框
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            });
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            }
+        });
+
+        // 滚动动画观察器
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有需要动画的元素
+        document.querySelectorAll('.animate-slide-up, .service-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加加载动画
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 初始化轮播
+            initCarousel();
+        });
+
+        // 轮播功能
+        let currentSlide = 0;
+        let slideInterval;
+
+        function initCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            // 自动轮播
+            slideInterval = setInterval(nextSlide, 5000);
+            
+            // 上一张按钮
+            document.querySelector('.carousel-prev').addEventListener('click', () => {
+                prevSlide();
+                resetInterval();
+            });
+            
+            // 下一张按钮
+            document.querySelector('.carousel-next').addEventListener('click', () => {
+                nextSlide();
+                resetInterval();
+            });
+            
+            // 指示器点击
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetInterval();
+                });
+            });
+        }
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            // 隐藏所有幻灯片
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // 移除所有指示器激活状态
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            // 显示当前幻灯片
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let next = currentSlide + 1;
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (next >= slides.length) {
+                next = 0;
+            }
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            let prev = currentSlide - 1;
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (prev < 0) {
+                prev = slides.length - 1;
+            }
+            showSlide(prev);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // 表单提交处理（如果有表单的话）
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('感谢您的留言！我们会尽快与您联系。');
+        }
+    </script>
+</body>
+</html>
